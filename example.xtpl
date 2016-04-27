@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><title>
+<head>
+<body>
+  {{! 这是注释 }}
+  <div id="username" class="username">
+    {{ username }}
+  <div>
+
+  {{ data.username }}
+  {{ data['username'] }}
+
+  {{! 下面是 unescape 的语法 }}
+  unescaped: {{{ foo }}}
+  
+  {{! 输出原始的模板块 }}
+  {{% {{ x }} %}}
+
+  {{%
+  {{ y }}
+  %}}
+
+  {{! 赋值语法 }}
+  {{ set x = 1 }}
+  {{ set y = 'hello, world' }}
+  {{ set (a = 1, b = 2) }}
+  {{ set arr = [1, 2, 'foo'] }}
+
+  {{! 前后空格 }}
+  {{ x ~}}
+  {{~ y }}
+
+  {{! 块 }}
+  {{# each(arr)}}
+    {{ this }}
+  {{/ each}}
+
+  {{! 操作符 }}
+  {{ x + y }}
+  {{ x + 'foo' }}
+  {{ x - 1 }}
+
+  {{! 比较 }}
+  {{#if (x === 1) }}
+    1
+  {{ elseif (x > 3) }}
+    4
+  {{ elseif (x <= 3) }}
+    2
+  {{ else }}
+    other
+  {{/ if }}
+
+  {{! with }}
+  {{# with (a) }}
+  {{ b }}
+  {{/ with }}
+
+  {{! array }}
+  {{set (array = [{
+      name: "foo"
+  }, {
+      name: "bar"
+  }])}}
+
+  {{#each(array)}}
+    {{xindex}} {{this.name}}
+  {{/each}}
+
+  {{! dictionaries }}
+  {{set (dictionary = {
+      foo: "bar",
+      hello: "world"
+  }) }}
+
+  {{#each(dictionary,"value","key")}}
+    {{key}} {{value}}
+  {{/each}}
+
+  {{! macro }}
+  {{#macro("test","param", default=1)}}
+    param is {{param}} {{default}}
+  {{/macro}}
+
+  {{ macro("test","2") }}
+  {{ macro("test", "2", default=2) }}
+
+  {{! include }}
+  {{ include ("sub.html", xx = x, yy = x)}}
+  {{ includeOnce ("sub.html", xx = x, yy = x)}}
+
+  {{! parse }}
+  {{ parse ("sub.html", xx = x, yy = x)}}
+
+  {{! block }}
+  {{{ block('head') }}}
+
+  {{# block('head') }}
+    head goes here
+  {{/ block}}
+
+  {{ require("hello") }}
+<body>
+<html>
