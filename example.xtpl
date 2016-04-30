@@ -1,27 +1,51 @@
+{{ hello.foo }}
+{{{ hello.html }}}
+{{! TODO 这是注释在外部 }}
+{{% {{x}} %}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title><title>
+  <title>{{ hello.name }}<title>
+  {{require("mui/feloader/feloader-min")}}
 <head>
 <body>
   {{! 这是注释 }}
-  <div id="username" class="username">
+  <div id="username" class="username {{hello.name}}" data-{{value}} data-config='{{{ data.config }}}'>
     {{ username }}
   <div>
 
+  <script>
+    var foo = '{{ foo.value }}';
+    var html = '{{{ foo.html }}}'
+    console.log(foo, html);
+  </script>
+
+  <script type="text/xtpl">
+    {{! 输出原始的模板块 }}
+    {{% {{ foo.x }} %}}
+  </script>
+
+  <script type="text/xtpl">
+    {{! 输出原始的模板块 }}
+    {{%
+    {{#each (arr)}}
+      {{xindex}}
+      {{this.value}}
+      {{'hello'}}
+    {{/each}}
+    %}}
+  </script>
+
+  <h1>
+    {{require('hello')}}
+  </h1>
+
   {{ data.username }}
   {{ data['username'] }}
-
+  
   {{! 下面是 unescape 的语法 }}
   unescaped: {{{ foo }}}
-  
-  {{! 输出原始的模板块 }}
-  {{% {{ x }} %}}
-
-  {{%
-  {{ y }}
-  %}}
 
   {{! 赋值语法 }}
   {{ set x = 1 }}
@@ -29,9 +53,13 @@
   {{ set (a = 1, b = 2) }}
   {{ set arr = [1, 2, 'foo'] }}
 
-  {{! 前后空格 }}
-  {{ x ~}}
-  {{~ y }}
+  {{! 删除前后空格 }}
+  {{set x='1'}}
+  {{set data=[1,2]}}
+  {{ x ~}}  end
+  {{~#each(data) ~}}
+  {{this}}
+  {{~/each}}
 
   {{! 块 }}
   {{# each(arr)}}
@@ -59,7 +87,7 @@
   {{ b }}
   {{/ with }}
 
-  {{! array }}
+  {{! TODO array }}
   {{set (array = [{
       name: "foo"
   }, {
@@ -93,14 +121,14 @@
   {{ includeOnce ("sub.html", xx = x, yy = x)}}
 
   {{! parse }}
-  {{ parse ("sub.html", xx = x, yy = x)}}
+  {{ parse ("sub.html", xx = undefined, yy = null)}}
 
   {{! block }}
   {{{ block('head') }}}
 
-  {{# block('head') }}
+  {{#block('head')}}
     head goes here
-  {{/ block}}
+  {{/block}}
 
   {{ require("hello") }}
 <body>
