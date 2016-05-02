@@ -1,39 +1,35 @@
-" Read the HTML syntax to start with
-if version < 600
-  so <sfile>:p:h/html.vim
-else
-  runtime! syntax/html.vim
-  unlet b:current_syntax
-endif
+" Vim syntax file
+" Language: XTemplate
+" Maintainer: Kevin Yue <yuezk001@gmail.com>
 
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax")
+if exists("b:current_syntax")
   finish
 endif
 
-" Standard HiLink will not work with included syntax files
-if version < 508
-  command! -nargs=+ HtmlHiLink hi link <args>
-else
-  command! -nargs=+ HtmlHiLink hi def link <args>
-endif
+syn include @HTML syntax/html.vim
+unlet b:current_syntax
 
-" 定义 XTemplate 的 {{ }} 区块
-syn region xtplNormalInside matchgroup=xtplBraces start=/\({\)\@<!{{\([{!%]\)\@!\~\?/ end=/\~\?\([%}]\)\@<!}}\(}\)\@!/ containedin=ALLBUT,@xtplInside
-" 定义 XTemplate 的 {{{ }}} 区块
-syn region xtplUnescapeInside matchgroup=xtplBracesUnescape start=/\({\)\@<!{{{\({\)\@!/ end=/\(}\)\@<!}}}\(}\)\@!/ containedin=ALLBUT,@xtplInside
+runtime! syntax/html.vim
+unlet b:current_syntax
+
+command! -nargs=+ HtmlHiLink hi def link <args>
 
 " 定义 {{% %}} 区块
-syn region xtplRawInside matchgroup=xtplBracesRaw start=/\({\)\@<!{{%/ end=/%}}\(}\)\@!/ containedin=ALLBUT,@xtplInside
+syn region xtplRawInside matchgroup=xtplBracesRaw start=/\({\)\@<!{{%/ end=/%}}\(}\)\@!/ containedin=ALLBUT,@xtplInside contains=@HTML
+
+" 定义 XTemplate 的 {{ }} 区块
+syn region xtplNormalInside matchgroup=xtplBraces start=/\({\)\@<!{{\([{!%]\)\@!\~\?/ end=/\~\?\([%}]\)\@<!}}\(}\)\@!/ containedin=ALLBUT,@xtplInside,xtplComment
+
+" 定义 XTemplate 的 {{{ }}} 区块
+syn region xtplUnescapeInside matchgroup=xtplBracesUnescape start=/\({\)\@<!{{{\({\)\@!/ end=/\(}\)\@<!}}}\(}\)\@!/ containedin=ALLBUT,@xtplInside,xtplComment
 
 " 注释的区块 {{! }}
-syn region xtplComment start=/{{!/rs=s+2 skip=/{{.\{-}}}/ end=/}}/re=e-2 contains=xtplTodo containedin=TOP keepend
+syn region xtplComment start=/{{!/rs=s+2 skip=/{{.\{-}}}/ end=/}}/re=e-2 contains=xtplTodo containedin=TOP
+
+syn cluster xtplInside add=xtplNormalInside,xtplUnescapeInside
 
 " todo 关键字高亮
 syn keyword xtplTodo TODO contained 
-
-syn cluster xtplInside add=xtplNormalInside,xtplUnescapeInside
 
 " 操作符
 syn match xtplOperators '[-+*/=.><%,]' contained containedin=@xtplInside

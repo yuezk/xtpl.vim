@@ -131,5 +131,18 @@
   {{/block}}
 
   {{ require("hello") }}
+
+  <script type="text/xtpl">
+    {{%
+      {{set a = 1}}
+      <h3 style="color: {{data.color}}">{{data.title}}</h3>
+      {{#each(data.arr)}}
+        <li>
+          <img src="{{this.img}}" alt="{{this.title}}">
+          <div>{{this.name}}</div>
+        <li>
+      {{/each}}
+    %}}
+  </script>
 <body>
 <html>
