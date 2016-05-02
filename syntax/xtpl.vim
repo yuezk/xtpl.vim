@@ -15,7 +15,7 @@ unlet b:current_syntax
 command! -nargs=+ HtmlHiLink hi def link <args>
 
 " 定义 {{% %}} 区块
-syn region xtplRawInside matchgroup=xtplBracesRaw start=/\({\)\@<!{{%/ end=/%}}\(}\)\@!/ containedin=ALLBUT,@xtplInside contains=@HTML
+syn region xtplRawInside matchgroup=xtplBracesRaw start=/\({\)\@<!{{%/ end=/%}}\(}\)\@!/ keepend containedin=ALLBUT,@xtplInside contains=@HTML
 
 " 定义 XTemplate 的 {{ }} 区块
 syn region xtplNormalInside matchgroup=xtplBraces start=/\({\)\@<!{{\([{!%]\)\@!\~\?/ end=/\~\?\([%}]\)\@<!}}\(}\)\@!/ containedin=ALLBUT,@xtplInside,xtplComment
