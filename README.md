@@ -31,6 +31,7 @@ NeoBundle 'yuezk/xtpl.vim'
 - 修复 `<script type="text/xtpl"></script>` 中的 HTML 标签不高亮的问题
 - 精简 xtpl.vim，不再兼容旧版本的 Vim
 - 优化注释的高亮
+- 优化 `{{% %}}` 区块的高亮
 
 ### 2016-04-30
 
