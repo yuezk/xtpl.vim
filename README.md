@@ -26,6 +26,11 @@ NeoBundle 'yuezk/xtpl.vim'
 
 ## Changelog
 
+### 2017-02-13
+
+- improve indent
+
+
 ### 2016-05-02
 
 - 修复 `<script type="text/xtpl"></script>` 中的 HTML 标签不高亮的问题

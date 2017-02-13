@@ -1,9 +1,6 @@
-if exists("b:did_indent_xtpl")
+if exists('b:did_indent')
   finish
 endif
-
-unlet! b:did_indent
-setlocal indentexpr=
 
 runtime! indent/html.vim
 unlet! b:did_indent
@@ -21,10 +18,9 @@ endif
 let b:xtpl_subtype_indentexpr = &l:indentexpr
 
 let b:did_indent = 1
-let b:did_indent_xtpl = 1
 
 setlocal indentexpr=GetXtplIndent()
-setlocal indentkeys=o,O,*<Return>,<>>,{,},0),0],o,O,!^F,=end,=else,=elsif,=rescue,=ensure,=when
+setlocal indentkeys=/,o,O,*<Return>,<>>,{,},0),0],!^F,=end,=else,=elsif
 
 " Only define the function once.
 if exists("*GetXtplIndent")
