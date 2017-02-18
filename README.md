@@ -26,6 +26,10 @@ NeoBundle 'yuezk/xtpl.vim'
 
 ## Changelog
 
+### 2017-02-18
+
+- Added auto load html plugins
+
 ### 2017-02-13
 
 - improve indent
