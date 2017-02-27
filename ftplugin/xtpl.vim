@@ -8,4 +8,4 @@ if exists("b:did_ftplugin")
 endif
 
 " Load html ftplugins
-runtime! ftplugin/html.vim ftplugin/html/*.vim
+" runtime! ftplugin/html.vim ftplugin/html/*.vim
